@@ -1,0 +1,6 @@
+node_modules/
+mongod-start
+*.log
+/**~
+#/config.*
+*.pem
