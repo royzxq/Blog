@@ -1,0 +1,21 @@
+<a href="/">Back To Main Page</a>
+<div class="widget">
+  <form name="create-subject-form" id="create-subject-form" method="post" nonvalidate>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Name" required value="{{name}}" />
+    </div>
+
+    
+  
+    <div class="form-submit">
+      <input type="submit" name="type" value="submit"/>
+    </div>
+
+    <span style="color:blue">{{msg}}</span>
+    <span id="msg"></span>
+    <span style="color:red">{{error}}</span>
+  </form>
+  
+</div>
+

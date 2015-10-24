@@ -5,7 +5,7 @@
 	function config($routeProvider){
 		$routeProvider
 			.when('/',{
-				tempateUrl:'/javascript/index.html',
+				templateUrl:'/javascripts/app/index.html',
 				controller: 'IndexController',
 				controllerAs: 'vm'
 			});

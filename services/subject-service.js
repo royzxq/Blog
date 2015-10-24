@@ -16,14 +16,14 @@ exports.getSubject = function(name, next){
 		if(err){
 			return next(err);
 		}
-		next(null, subs);
+		next(null, sub);
 	})
 }
 
 exports.addSubject = function(sub, next){
 	var newSub = new Subject({
 		name: sub.name,
-		page_titles = []
+		page_titles : []
 	});
 
 	newSub.save(function(err){

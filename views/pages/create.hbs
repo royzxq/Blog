@@ -1,0 +1,29 @@
+<a href="/">Back To Main Page</a>
+<div class="widget">
+  <form name="create-page-form" id="create-page-form" method="post" nonvalidate>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" placeholder="Title" required value="{{title}}" />
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" name="subject" placeholder="Subject" required value="{{subject}}" />
+    </div>
+    
+    <div class="form-group">
+      <label for="content">Content</label>
+      <input type="text" id="content" name="content" placeholder="Content" required value="{{content}}" />
+    </div>
+
+
+    <div class="form-submit">
+      <input type="submit" name="type" value="submit"/>
+    </div>
+    
+    <span style="color:blue">{{msg}}</span>
+    <span id="msg"></span>
+    <span style="color:red">{{error}}</span>
+  </form>
+  
+</div>
+

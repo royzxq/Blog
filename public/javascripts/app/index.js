@@ -6,7 +6,11 @@
 	IndexController.$inject = ['$http'];
 
 	function IndexController($http){
-		vm = this;
+		var vm = this;
 		
+		$http.get('/subjects')
+			.then(function(response){
+				vm.subjects = response.data;
+			});
 	}
 }());

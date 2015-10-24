@@ -17,8 +17,8 @@ router.get('/subjects', function(req, res){
 	})
 })
 
-router.get('/subjects/:name', function(req, res){
-	subService.getSubject(req.params.title, function(err, sub){
+router.get('/subject/:name', function(req, res){
+	subService.getSubject(req.params.name, function(err, sub){
 		if(err){
 			return res.status(500).json({error: "Failed"});
 		}
@@ -32,7 +32,7 @@ router.get('/create', function(req, res){
 });
 
 router.post('/create', function(req, res){
-	subService.addSubject(req, function(err){
+	subService.addSubject(req.body, function(err){
 		if (err) {
 			return res.status(500).json({error: "Failed"});
 		}
@@ -42,12 +42,14 @@ router.post('/create', function(req, res){
 });
 
 router.get('/update/:name', function(req, res){
-	var vm = {}
+	var vm = {
+		name: req.params.name
+	}
 	res.render('subjects/create', vm);
 });
 
 router.post('/update/:name',function(req,res){
-	subService.updateSubject(req.params.name, req, function(err){
+	subService.updateSubject(req.params.name, req.body, function(err){
 		if (err) {
 			return res.status(500).json({error: "Failed"});
 		}

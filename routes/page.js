@@ -3,7 +3,7 @@ var router = express.Router();
 
 var pageService = require('../services/page-service');
 
-router.get('/:title', function  (req, res) {
+router.get('/page/:title', function  (req, res) {
 	pageService.getPage(req.params.title, function(err, page){
 		if (err) {
 			return res.status(500).json({error: "Failed"});
@@ -17,7 +17,7 @@ router.get('/create', function(req, res, next){
 })
 
 router.post('/create', function(req, res, next){
-	pageService.addPage(req, function(err){
+	pageService.addPage(req.body, function(err){
 		if (err) {
 			return res.status(500).json({error: "Failed"});
 		}
@@ -26,12 +26,16 @@ router.post('/create', function(req, res, next){
 });
 
 router.get('/update/:title', function(req, res, next){
-	var vm = {}
+	var vm = {
+		title: req.params.title,
+		subject: req.subject,
+		content: req.content
+	}
 	res.render('pages/create', vm);
 })
 
 router.post('/update/:title', function(req, res, next){
-	pageService.updatePage(req.params.title, req, function(err){
+	pageService.updatePage(req.params.title, req.body, function(err){
 		if (err) {
 			return res.status(500).json({error: "Failed"});
 		}
