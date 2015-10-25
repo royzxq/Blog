@@ -1,0 +1,18 @@
+<a href="/pages/create">Create new page</a>
+<div>
+	<strong ng-show='!vm.subject'>Loading</strong>
+	<div ng-show="vm.subject">
+		<table style='font-size:17px'>
+			<tr>
+				<td>
+					<strong ng-bind='vm.subject.name'></strong>
+				</td>
+				<td> Edit </td>
+			</tr>
+			<tr ng-repeat='title in vm.subject.page_titles'>
+				<td ng-bind='title'></td>
+				<td> <a href="" ng-click='vm.edit(title)'>Edit</a> </td>
+			</tr>
+		</table>
+	</div>
+</div>

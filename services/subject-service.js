@@ -1,6 +1,6 @@
 
 var Subject = require('../models/subject');
-// var Page = require('../models/page');
+var pageService = require('../services/page-service');
 
 exports.getSubjects = function (next) {
 	Subject.find({},function(err, subs){
@@ -22,7 +22,7 @@ exports.getSubject = function(name, next){
 
 exports.addSubject = function(sub, next){
 	var newSub = new Subject({
-		name: sub.name,
+		name: sub.name.trim(),
 		page_titles : []
 	});
 
@@ -35,11 +35,16 @@ exports.addSubject = function(sub, next){
 }
 
 exports.updateSubject = function(name, sub, next){
-	Subject.findOne({name: name}, function(err, subject){
+	Subject.findOne({name: name.trim()}, function(err, subject){
 		if (err) {
 			return next(err);
 		}
-		subject.name = sub.name,
+		pageService.updatePagesSubject(name.trim(), sub.name, function(error){
+			if (error) {
+				return next(error);
+			}
+		});
+		subject.name = sub.name;
 		subject.page_titles = sub.page_titles;
 		subject.save(function(err){
 			if (err) {
@@ -55,6 +60,11 @@ exports.deleteSubject = function(name, next){
 		if (err) {
 			return next(err);
 		}
-		next(null);
-	})
+		pageService.deletePagesSubject(name, function(err){
+			if (err) {
+				return next(err);
+			}
+			next(null);
+		})
+	});
 }

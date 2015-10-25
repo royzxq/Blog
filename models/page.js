@@ -12,7 +12,7 @@ var pageSchema = new Schema({
 },{collection: "page"});
 
 pageSchema.path('title').validate(function  (value, next) {
-	pageService.getPage(value, function(err, page){
+	pageService.getPageByTitle(value, function(err, page){
 		if (err) {
 			return next(false);
 		}

@@ -5,16 +5,21 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+var expressSession = require("express-session");
+var connectMongo = require('connect-mongo');
+var passport = require('passport');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var pages = require('./routes/page');
 var config = require('./config');
+var passportConfig = require('./auth/passport-config');
 
+var MongoStore = connectMongo(expressSession);
 mongoose.connect(config.mongoUri);
 
 var app = express();
+passportConfig();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,11 +33,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(expressSession(
+    {
+        secret: 'my Blog',
+        saveUninitialized: false,
+        resave: false,
+        store: new MongoStore({
+           mongooseConnection: mongoose.connection 
+        })
+    }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/pages', pages);
 
-app.use(redirectUnmatched);
+// app.use(redirectUnmatched);
 
 function redirectUnmatched(req, res){
   res.redirect('/');
