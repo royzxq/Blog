@@ -7,14 +7,18 @@
 	function SubjectController($routeParams,$location,$http,$window){
 		var vm = this;
 		var url = '/subjects/' + $routeParams.name + '/';
-		console.log(url);
+		
 		$http.get(url)
 			.then(function(response){
 				vm.subject = response.data;
 			});
 
 		vm.edit = function(title){
-			$window.location.href = 'pages/update/'+title;
+			$window.location.href = '/pages/update/'+title;
+		}
+
+		vm.getPage = function(title){
+			$location.url('/subject/' + $routeParams.name + '/' + title);
 		}
 	}
 }());

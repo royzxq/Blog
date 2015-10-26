@@ -27,12 +27,20 @@ router.post('/create',restrict, function(req, res, next){
 });
 
 router.get('/update/:title',restrict, function(req, res, next){
+	// var vm = {
+	// 	title: req.params.title,
+	// 	subject: req.subject,
+	// 	content: req.content
+	// }
 	var vm = {
-		title: req.params.title,
-		subject: req.subject,
-		content: req.content
-	}
-	res.render('pages/create', vm);
+		title: req.params.title
+	};
+	pageService.getPageByTitle(req.params.title, function(err, page){
+		vm.subject = page.subject.name;
+		vm.content = page.content;
+		res.render('pages/create', vm);
+	});
+	
 });
 
 router.post('/update/:title',restrict, function(req, res, next){

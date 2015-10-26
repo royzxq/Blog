@@ -3,7 +3,7 @@
 	<strong ng-show='!vm.page'>Loading</strong>
 	<div ng-show="vm.page">
 		<div ng-bind='vm.page.title'>
-			<span ng-bind='vm.page.subject'></span>
+			<span ng-bind='vm.page.subject.name'></span>
 		</div>
 		<div>
 			<p ng-bind='vm.page.content'></p>

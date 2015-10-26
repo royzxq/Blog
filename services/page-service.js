@@ -27,12 +27,14 @@ exports.getPage = function (title, subject, next) {
 }
 
 exports.getPageByTitle = function (title, next) {
-	Page.findOne({title: title}, function(err, page){
-		if (err) {
-			return next(err);
-		}
-		next(null, page);
-	})
+	Page.findOne({title: title})
+		.populate('subject')
+		.exec(function(err, page){
+			if (err) {
+				return next(err);
+			}
+			next(null, page);
+		});
 }
 
 exports.getPagesBySubject = function(subject, next){

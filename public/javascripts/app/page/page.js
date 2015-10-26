@@ -9,6 +9,7 @@
 		$http.get('/subjects/' + $routeParams.name + '/' + $routeParams.title)
 			.then(function(response){
 				vm.page = response.data;
+				console.log(response);
 			});
 
 		vm.edit = function(title){
