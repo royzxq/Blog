@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 router.get('/subjects', function(req, res){
 	subService.getSubjects(function(err, subs){
 		if(err){
-			return res.status(500).json({error: "Failed"});
+			return res.status(500).json({error: "Failed to get subjects"});
 		}
 		res.json(subs);
 	})
@@ -22,14 +22,13 @@ router.get('/subjects', function(req, res){
 router.get('/subjects/:name', function(req, res){
 	subService.getSubject(req.params.name, function(err, sub){
 		if(err){
-			return res.status(500).json({error: "Failed"});
+			return res.status(500).json({error: "Failed to get subject"});
 		}
 		res.json(sub);
 	})
 })
 
 router.get('/subjects/:name/:title', function(req, res){
-
 	pageService.getPage(req.params.title, req.params.name,function(err, page){
 		if (err) {
 			return res.status(500).json({error: "Failed to get page"});

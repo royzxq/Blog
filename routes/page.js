@@ -17,11 +17,12 @@ router.get('/create',restrict, function(req, res, next){
 })
 
 router.post('/create',restrict, function(req, res, next){
+
 	pageService.addPage(req.body, function(err){
 		if (err) {
-			return res.status(500).json({error: "Failed"});
+			return res.status(500).json({error: "Failed to create page"});
 		}
-		res.redirect('/subject/'+req.body.subject);
+		res.redirect('/');
 	});
 });
 
@@ -37,7 +38,7 @@ router.get('/update/:title',restrict, function(req, res, next){
 router.post('/update/:title',restrict, function(req, res, next){
 	pageService.updatePage(req.params.title, req.body, function(err){
 		if (err) {
-			return res.status(500).json({error: "Failed"});
+			return res.status(500).json({error: "Failed to updage page"});
 		}
 		res.redirect('/subjects/'+req.subject);
 	});

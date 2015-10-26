@@ -1,6 +1,6 @@
 var Page = require('../models/page');
 var Subject = require('../models/subject');
-var subjectService = require('../services/subject-service');
+
 exports.getPages = function(next){
 	Page.find({}, function(err,pages){
 		if (err) {
@@ -55,18 +55,27 @@ exports.addPage = function(page, next){
 	});
 
 	Subject.findOne({name: page.subject})
-		.populate('pages')
+		// .populate('pages')
 		.exec(function(err, sub){
 			if (err) {
+				console.log("Fail to get subject");
 				return next(err);
 			}
 			newPage.subject = sub._id;
+			
 			sub.pages.push(newPage._id);
+			console.log(sub);
 			newPage.save(function(err){
 				if (err) {
+					console.log("fail to save page")
 					return next(err);
 				}
-				next(null);
+				Subject.update({_id: sub._id}, {$set:{pages: sub.pages}}, function(err){
+					if (err) {
+						return next(err);
+					}
+					next(null);
+				});
 			});
 		});
 }
