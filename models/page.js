@@ -5,7 +5,10 @@ var pageService = require('../services/page-service');
 
 var pageSchema = new Schema({
 	title: String,
-	subject: String,
+	subject: {
+		type: Schema.Types.ObjectId,
+		ref: 'Subject'
+	},
 	content: String,
 	create: {type: Date, default: Date.now},
 	update: {type: Date, default: Date.now}

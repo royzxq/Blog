@@ -4,7 +4,10 @@ var subService = require('../services/subject-service');
 
 var subSchema = new Schema({
 	name: String,
-	page_titles: []
+	pages: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Page'
+	}]
 },{collection: 'subject'});
 
 subSchema.path('name').validate(function (value, next) {
