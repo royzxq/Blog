@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var restrict = require('../auth/restrict');
 var pageService = require('../services/page-service');
-
 // router.get('/page/:title', function  (req, res) {
 // 	pageService.getPage(req.params.title, function(err, page){
 // 		if (err) {
@@ -13,7 +12,10 @@ var pageService = require('../services/page-service');
 // });
 
 router.get('/create',restrict, function(req, res, next){
-	res.render('pages/create');
+	vm = {
+		firstName: req.user ? req.user.firstName : null
+	}
+	res.render('pages/create', vm);
 })
 
 router.post('/create',restrict, function(req, res, next){
@@ -33,11 +35,13 @@ router.get('/update/:title',restrict, function(req, res, next){
 	// 	content: req.content
 	// }
 	var vm = {
-		title: req.params.title
+		title: req.params.title,
+		firstName: req.user ? req.user.firstName : null
 	};
 	pageService.getPageByTitle(req.params.title, function(err, page){
 		vm.subject = page.subject.name;
 		vm.content = page.content;
+		
 		res.render('pages/create', vm);
 	});
 	

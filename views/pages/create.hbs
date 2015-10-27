@@ -7,15 +7,13 @@
     </div>
     <div class="form-group">
       <label for="subject">Subject</label>
-      {{!--<input type="text" id="subject" name="subject" placeholder="Subject" required value="{{subject}}" />--}}
       <select id='subject' name='subject' >
-        
       </select>
     </div>
     
     <div class="form-group">
       <label for="content">Content</label>
-      <input type="text" id="content" name="content" placeholder="Content" required value="{{content}}" />
+      <textarea rows="4" cols="50" id="content" name="content" placeholder="Content" required  >{{content}}</textarea>
     </div>
 
 
@@ -30,7 +28,15 @@
   
 </div>
 <script>
-   if(title){
-     alert('got the title');
-   }
+  var subjects;
+   $.ajax({
+    type: 'GET',
+    url: '/subjects',
+    success: function (response) {
+      subjects = response;
+      for(var i = 0 ; i < subjects.length; i++){
+        $('#subject').append('<option value="' + subjects[i].name + '">' + subjects[i].name + '</option>');
+      }
+    }
+   })
 </script>

@@ -1,4 +1,4 @@
-<a href="/create">Create new subject</a>
+<a ng-show='vm.user' href="/create">Create new subject</a>
 <div>
 	<strong ng-show='!vm.subjects'>Loading</strong>
 	<div ng-show="vm.subjects">
@@ -7,13 +7,13 @@
 				<td>
 					<strong>Subject Name</strong>
 				</td>
-				<td> Edit </td>
+				<td ng-show='vm.user'> Edit </td>
 			</tr>
 			<tr ng-repeat='sub in vm.subjects'>
 				<td >
 					<a href="" ng-bind='sub.name' ng-click='vm.getSub(sub.name)'></a>
 				</td>
-				<td> <a href="" ng-click='vm.edit(sub.name)'>Edit</a> </td>
+				<td ng-show='vm.user'> <a href="" ng-click='vm.edit(sub.name)'>Edit</a> </td>
 			</tr>
 		</table>
 	</div>

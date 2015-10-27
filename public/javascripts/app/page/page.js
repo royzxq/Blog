@@ -12,6 +12,12 @@
 				console.log(response);
 			});
 
+		$http.get('/users/getUser')
+			.then(function(response){
+				// console.log(response.data);
+				vm.user = response.data;
+			})
+			
 		vm.edit = function(title){
 			$window.location.href = '/pages/update/'+title;
 		}

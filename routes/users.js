@@ -9,6 +9,15 @@ var config = require('../config');
 //   res.send('respond with a resource');
 // });
 
+router.get('/getUser', function(req, res, next){
+	if(req.user){
+		res.json(req.user);
+	}
+	else{
+		res.json(null);
+	}
+})
+
 router.get('/create', function(req, res, next){
 	res.render('users/create');
 });
@@ -29,7 +38,10 @@ router.post('/create', function(req, res, next){
 });
 
 router.get('/login', function(req, res, next){
-	res.render('users/login');
+	vm = {
+		firstName: req.user ? req.user.firstName : null
+	}
+	res.render('users/login', vm);
 })
 
 router.post('/login', function(req, res, next){

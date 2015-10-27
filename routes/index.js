@@ -7,7 +7,10 @@ var subService = require('../services/subject-service');
 var pageService = require('../services/page-service');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+	var vm = {
+		firstName: req.user ? req.user.firstName : null
+	}
+  res.render('index', vm);
 });
 
 router.get('/subjects', function(req, res){
@@ -39,7 +42,10 @@ router.get('/subjects/:name/:title', function(req, res){
 });
 
 router.get('/create', function(req, res){
-	res.render('subjects/create');
+	var vm = {
+		firstName: req.user ? req.user.firstName : null
+	}
+	res.render('subjects/create', vm);
 });
 
 router.post('/create', function(req, res){
@@ -47,14 +53,15 @@ router.post('/create', function(req, res){
 		if (err) {
 			return res.status(500).json({error: "Failed"});
 		}
-		res.render('index');
+		res.redirect('/');
 	});
 
 });
 
 router.get('/update/:name',restrict, function(req, res){
 	var vm = {
-		name: req.params.name
+		name: req.params.name,
+		firstName: req.user ? req.user.firstName : null
 	}
 	res.render('subjects/create', vm);
 });
@@ -64,7 +71,7 @@ router.post('/update/:name',restrict, function(req,res){
 		if (err) {
 			return res.status(500).json({error: "Failed"});
 		}
-		res.render('index');
+		res.redirect('/');
 	})
 });
 
@@ -73,7 +80,7 @@ router.delete('/:name',restrict, function(req ,res){
 		if (err) {
 			return res.status(500).json({error: "Failed"});
 		}
-		res.render('index');
+		res.redirect('/');
 	})
 })
 
