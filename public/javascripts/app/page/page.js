@@ -13,7 +13,10 @@
 			});
 
 		vm.edit = function(title){
-			$window.location.href = 'pages/update/'+name;
+			$window.location.href = '/pages/update/'+title;
+		}
+		vm.getSub = function(name){
+			$location.url('/subject/' + name)
 		}
 	}
 }());

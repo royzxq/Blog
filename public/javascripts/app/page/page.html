@@ -1,10 +1,16 @@
 <a href="/pages/create">Create new page</a>
+<a href='' ng-click = 'vm.getSub(vm.page.subject.name)'>
+	Back to Subject Page
+</a>
 <div>
 	<strong ng-show='!vm.page'>Loading</strong>
 	<div ng-show="vm.page">
+		<div>Title: </div>
 		<div ng-bind='vm.page.title'>
-			<span ng-bind='vm.page.subject.name'></span>
+			
 		</div>
+		<span>Subject: </span><span ng-bind='vm.page.subject.name'></span>
+		<div>Content: </div>
 		<div>
 			<p ng-bind='vm.page.content'></p>
 		</div>

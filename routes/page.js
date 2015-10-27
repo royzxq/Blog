@@ -48,7 +48,7 @@ router.post('/update/:title',restrict, function(req, res, next){
 		if (err) {
 			return res.status(500).json({error: "Failed to updage page"});
 		}
-		res.redirect('/subjects/'+req.subject);
+		res.redirect('/subjects/'+req.body.subject);
 	});
 });
 

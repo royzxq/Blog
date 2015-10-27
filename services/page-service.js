@@ -12,16 +12,27 @@ exports.getPages = function(next){
 
 exports.getPage = function (title, subject, next) {
 	
-	Subject.findOne({name: subject})
+	// Subject.findOne({name: subject})
+	// 	.populate({
+	// 		path: 'pages',
+	// 		match: {title: title}
+	// 	})
+	// 	.exec(function(err, page){
+	// 		if (err) {
+	// 			return next(err);
+	// 		}
+	// 		next(null, page);
+	// 	});
+	Page.find({title: title})
 		.populate({
-			path: 'pages',
-			match: {title: title}
+			path: 'subject',
+			match: {name: subject}
 		})
-		.exec(function(err, page){
-			if (err) {
+		.exec(function(err, page) {
+		    if (err) {
 				return next(err);
 			}
-			next(null, page);
+			next(null, page[0]);
 		});
 	
 }
