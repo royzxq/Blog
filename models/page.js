@@ -10,6 +10,8 @@ var pageSchema = new Schema({
 		ref: 'Subject'
 	},
 	content: String,
+	tags : [],
+	author: String,
 	create: {type: Date, default: Date.now},
 	update: {type: Date, default: Date.now}
 },{collection: "page"});

@@ -12,8 +12,13 @@ var pageService = require('../services/page-service');
 // });
 
 router.get('/create',restrict, function(req, res, next){
+	var author = null;
+	if (req.user) {
+		author = req.user.firstName + ' ' + req.user.lastName;
+	}
 	vm = {
-		firstName: req.user ? req.user.firstName : null
+		firstName: req.user ? req.user.firstName : null,
+		author: author
 	}
 	res.render('pages/create', vm);
 })
@@ -41,7 +46,7 @@ router.get('/update/:title',restrict, function(req, res, next){
 	pageService.getPageByTitle(req.params.title, function(err, page){
 		vm.subject = page.subject.name;
 		vm.content = page.content;
-		
+		vm.author = page.author;
 		res.render('pages/create', vm);
 	});
 	

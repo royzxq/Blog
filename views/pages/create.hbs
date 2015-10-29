@@ -5,6 +5,12 @@
       <label for="title">Title</label>
       <input type="text" id="title" name="title" placeholder="Title" required value="{{title}}" />
     </div>
+
+    <div class="form-group">
+      <label for="title">Author</label>
+      <input type="text" id="author" name="author" placeholder="Author" required value="{{author}}" />
+    </div>
+
     <div class="form-group">
       <label for="subject">Subject</label>
       <select id='subject' name='subject' >
@@ -16,6 +22,10 @@
       <textarea rows="4" cols="50" id="content" name="content" placeholder="Content" required  >{{content}}</textarea>
     </div>
 
+    <div class="form-group">
+      <label for="title">Tags</label>
+      <input type="text" id="tags" name="tags" placeholder="Tags"/>
+    </div>
 
     <div class="form-submit">
       <input type="submit" name="type" value="submit"/>

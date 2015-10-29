@@ -7,12 +7,19 @@
 	<div ng-show="vm.page">
 		<div>Title: </div>
 		<div ng-bind='vm.page.title'>
-			
 		</div>
+		<div>Author: </div>
+		<div ng-bind='vm.page.author'></div>
+		
 		<span>Subject: </span><span ng-bind='vm.page.subject.name'></span>
 		<div>Content: </div>
 		<div>
 			<p ng-bind='vm.page.content'></p>
+		</div>
+
+		<div> Tags: </div>
+		<div ng-repeat='tag in vm.page.tags'>
+			<p ng-bind = 'tag'></p>
 		</div>
 	</div>
 </div>

@@ -12,17 +12,6 @@ exports.getPages = function(next){
 
 exports.getPage = function (title, subject, next) {
 	
-	// Subject.findOne({name: subject})
-	// 	.populate({
-	// 		path: 'pages',
-	// 		match: {title: title}
-	// 	})
-	// 	.exec(function(err, page){
-	// 		if (err) {
-	// 			return next(err);
-	// 		}
-	// 		next(null, page);
-	// 	});
 	Page.find({title: title})
 		.populate({
 			path: 'subject',
@@ -64,9 +53,13 @@ exports.getPagesBySubject = function(subject, next){
 exports.addPage = function(page, next){
 	var newPage = new Page({
 		title: page.title,
-		content: page.content
+		content: page.content,
+		author: page.author
 	});
-
+	if(page.tags){
+		page.tags = page.tags.split(',');
+		newPage.tags = page.tags;
+	}
 	Subject.findOne({name: page.subject})
 		// .populate('pages')
 		.exec(function(err, sub){
@@ -77,7 +70,6 @@ exports.addPage = function(page, next){
 			newPage.subject = sub._id;
 			
 			sub.pages.push(newPage._id);
-			console.log(sub);
 			newPage.save(function(err){
 				if (err) {
 					console.log("fail to save page")
@@ -101,6 +93,12 @@ exports.updatePage = function(title, page, next){
 		}
 		p.title = page.title;
 		p.content = page.content;
+		p.author = page.author;
+		if(page.tags){
+			page.tags = page.tags.split(',');
+			p.tags = page.tags;
+			
+		}
 		p.save(function(err){
 			if (err) {
 				return next(err);
