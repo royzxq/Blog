@@ -26,5 +26,9 @@
 		vm.getPage = function(title){
 			$location.url('/subject/' + $routeParams.name + '/' + title);
 		}
+
+		vm.backRoot = function(){
+			$location.url('/');
+		}
 	}
 }());

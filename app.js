@@ -51,7 +51,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/pages', pages);
 
-// app.use(redirectUnmatched);
+app.use(redirectUnmatched);
 
 function redirectUnmatched(req, res){
   res.redirect('/');

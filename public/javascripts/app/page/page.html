@@ -1,24 +1,28 @@
-<a ng-show='vm.user' href="/pages/create">Create new page</a>
+<a ng-show='vm.user' href="/pages/create">Create new page</a> &nbsp
 <a href='' ng-click = 'vm.getSub(vm.page.subject.name)'>
 	Back to Subject Page
 </a>
 <div>
 	<strong ng-show='!vm.page'>Loading</strong>
 	<div ng-show="vm.page">
-		<div>Title: </div>
-		<div ng-bind='vm.page.title'>
+		<div ng-show='vm.user'>
+			<button ng-click='vm.edit(vm.page.title)'>Edit</button>
 		</div>
-		<div>Author: </div>
-		<div ng-bind='vm.page.author'></div>
+		<div><strong>Title:</strong><span ng-bind='vm.page.title'>
+		</span> </div>
 		
-		<span>Subject: </span><span ng-bind='vm.page.subject.name'></span>
-		<div>Content: </div>
+		<span><strong>Author:</strong>  </span>
+		<span ng-bind='vm.page.author'></span>
+		<div>
+		<span><strong>Subject:</strong>  </span><span ng-bind='vm.page.subject.name'></span>
+		</div>
+		<div><strong>Content:</strong>  </div>
 		<div>
 			<p ng-bind='vm.page.content'></p>
 		</div>
 
-		<div> Tags: </div>
-		<div ng-repeat='tag in vm.page.tags'>
+		<button ng-click='vm.showTag()'>Tags</button>
+		<div ng-show='vm.isTag' ng-repeat='tag in vm.page.tags'>
 			<p ng-bind = 'tag'></p>
 		</div>
 	</div>
