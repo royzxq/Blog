@@ -3,5 +3,5 @@ public/bower/
 mongod-start
 *.log
 /**~
-#/config.*
+/config.*
 *.pem
