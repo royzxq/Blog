@@ -17,8 +17,8 @@
 		<span><strong>Subject:</strong>  </span><span ng-bind='vm.page.subject.name'></span>
 		</div>
 		<div><strong>Content:</strong>  </div>
-		<div>
-			<p ng-bind='vm.page.content' style='white-space: pre-wrap;'></p>
+		<div ng-repeat='p in vm.page.content'>
+			<p ng-bind='p' style='white-space: pre-wrap;'></p>
 		</div>
 
 		<button ng-click='vm.showTag()'>Tags</button>

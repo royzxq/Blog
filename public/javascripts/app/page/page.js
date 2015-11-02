@@ -13,6 +13,7 @@
 				if (vm.page.tags.length === 0) {
 					vm.page.tags.push("No tag yet");
 				};
+				vm.page.content = vm.page.content.split('\r\n');
 			});
 
 		$http.get('/users/getUser')
