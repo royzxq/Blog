@@ -23,6 +23,11 @@
 			$window.location.href = '/pages/update/'+title;
 		}
 
+		vm.delete = function(title){
+			var request = '/pages/' + title;
+			$http.delete(request);
+			$location.url('/');
+		}
 		vm.getPage = function(title){
 			$location.url('/subject/' + $routeParams.name + '/' + title);
 		}

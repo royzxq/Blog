@@ -33,5 +33,7 @@
 		vm.showTag = function(){
 			vm.isTag = !vm.isTag;
 		}
+
+		
 	}
 }());

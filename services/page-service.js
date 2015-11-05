@@ -87,30 +87,49 @@ exports.addPage = function(page, next){
 
 // just update page itself, not the subject it belongs to
 exports.updatePage = function(title, page, next){
-	Page.findOne({title: title}, function(err, p){
-		if (err) {
-			return next(err);
-		}
-		p.title = page.title;
-		p.content = page.content;
-		p.author = page.author;
-		if(page.tags){
-			page.tags = page.tags.split(',');
-			p.tags = page.tags;
-			
-		}
-		p.save(function(err){
+	Page.findOne({title: title})
+		.populate('subject')
+		.exec(function(err, p){
 			if (err) {
 				return next(err);
-			}	
-			next(null);
+			}
+			p.title = page.title;
+			p.content = page.content;
+			p.author = page.author;
+			var idx = p.subject.pages.indexOf(p);
+			if (idx > -1) {
+				p.subject.pages.splice(idx,1);
+			}
+			// p.subject = page.subject;
+			if(page.tags){
+				page.tags = page.tags.split(',');
+				// p.tags = page.tags;
+				for(var i = 0; i < page.tags.length; i++){
+					p.tags.push(page.tags[i]);
+				}
+			}
+			Subject.findOne({name: page.subject}, function(err, sub){
+				if (err) {
+					return next(err);
+				}
+				p.subject = sub;
+				sub.pages.push(p._id);
+				p.save(function(err){
+					if (err) {
+						return next(err);
+					}	
+					
+					next(null);	
+				});
+			});
+			
 		});
-	})
+
 }
 
 exports.updatePagesSubject = function(pre_subject_id, subject, next){
 	Subject.findOne({name: subject}, function(err, sub){
-		Page.update({subject: pre_subject_id}, {$set:{subject: sub_id}}, { multi: true }, function(err, pages){
+		Page.update({subject: pre_subject_id}, {$set:{subject: sub._id}}, { multi: true }, function(err, pages){
 			if (err) {
 				return next(err);
 			}
@@ -119,19 +138,33 @@ exports.updatePagesSubject = function(pre_subject_id, subject, next){
 }
 
 exports.deletePage = function(title, next){
-	Subject.find()
-		.populate({
-			path: 'pages',
-			match: {title: title}
-		})
-		.exec(function(err, page){
+	// Subject.find()
+	// 	.populate({
+	// 		path: 'pages',
+	// 		match: {title: title}
+	// 	})
+	// 	.exec(function(err, page){
+	// 		page.remove(function(err){
+	// 			if (err) {
+	// 				return next(err);
+	// 			}
+	// 			next(null);
+	// 		});
+	// 	});
+	Page.findOne({title: title})
+		.populate('subject')
+		.exec(function(err,page){
+			var idx = page.subject.pages.indexOf(page._id);
+			if (idx > -1) {
+				page.subject.pages.splice(idx,1);	
+			};
 			page.remove(function(err){
 				if (err) {
 					return next(err);
 				}
 				next(null);
-			});
-		});
+			})
+		})
 }
 
 exports.deletePagesSubject = function(subject, next){

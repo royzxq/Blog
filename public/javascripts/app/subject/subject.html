@@ -9,12 +9,14 @@
 					<strong ng-bind='vm.subject.name'></strong>
 				</td>
 				<td ng-show='vm.user'> Edit </td>
+				<td ng-show='vm.user'>Delete</td>
 			</tr>
 			<tr ng-repeat='page in vm.subject.pages'>
 				<td >
 					<a href="" ng-bind='page.title' ng-click='vm.getPage(page.title)'></a>
 				</td>
 				<td ng-show='vm.user'> <a href="" ng-click='vm.edit(page.title)'>Edit</a> </td>
+				<td ng-show='vm.user'><a href="" ng-click='vm.delete(page.title)'>Delete</a></td>
 			</tr>
 		</table>
 	</div>
